@@ -4,7 +4,7 @@ import styles from "./ImageCard.module.css";
 import { Image } from "../image";
 
 type ImageCardProps = {
-  image: Image;
+  image: Image[];
   onImageClick: (image: Image) => void;
 };
 
@@ -16,7 +16,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
   return (
     <li className={styles.card}>
       <img
-        src={image.urls.small} // Оновлено
+        src={image.urls.small}
         alt={image.alt_description}
         className={styles.image}
         onClick={handleClick}
