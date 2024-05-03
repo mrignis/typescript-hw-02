@@ -16,6 +16,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => 
       <ImageCard key={image.id} image={image} onImageClick={onImageClick} />
     ))}
   </ul>
-);;
+  } 
+};
 
 export default ImageGallery;
