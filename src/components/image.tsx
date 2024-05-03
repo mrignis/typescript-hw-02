@@ -11,3 +11,4 @@ export type Image = {
   };
   views: number;
 };
+ export default Image
