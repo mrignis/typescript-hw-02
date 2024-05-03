@@ -8,7 +8,7 @@ import ImageModal from "../../src/components/ImageModal/ImageModal";
 import LoadMoreBtn from "../../src/components/LoadMoreBtn/LoadMoreBtn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Image } from "../src/components/types"; // Зміна імпорту на "../types"
+import { Image } from "./components/image"; // Зміна імпорту на "../types"
 
 type AppProps = object;
 
@@ -74,7 +74,7 @@ const App: React.FC<AppProps> = () => {
     <div className="app">
       <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
-      {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}
+      {images.length > 0 && <ImageGallery image={images} onImageClick={handleImageClick} />}
       {images.length > 0 && <LoadMoreBtn onLoadMore={handleLoadMore} />}
       {error && <ErrorMessage message={error} />}
       {modalImage && <ImageModal isOpen={!!modalImage} image={modalImage} onClose={handleCloseModal} />}
