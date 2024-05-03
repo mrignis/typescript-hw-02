@@ -40,6 +40,4 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
   );
 };
 
-export { ImageCard };
-
 export default ImageCard;
