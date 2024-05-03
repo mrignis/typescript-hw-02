@@ -1,11 +1,11 @@
 import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
-import { Image } from "../ImageCard/ImageCard"; // додайте імпорт типу Image
+import { Image as CardImage } from "../ImageCard/ImageCard"; // змінено ім'я імпортованої змінної Image
 
 interface ImageGalleryProps {
-  images: Image[];
-  onImageClick: (image: Image) => void;
+  images: CardImage[]; // використовуємо нове ім'я типу
+  onImageClick: (image: CardImage) => void;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
