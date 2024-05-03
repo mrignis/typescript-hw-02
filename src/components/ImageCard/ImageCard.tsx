@@ -4,7 +4,7 @@ import styles from "./ImageCard.module.css";
 import { Image } from "../image";
 
 type ImageCardProps = {
-  image: Image[];
+  image: Image;
   onImageClick: (image: Image) => void;
 };
 
