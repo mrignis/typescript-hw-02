@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ImageCard.module.css";
-
 interface Image {
   id: string;
   urls: {
+    regular: string;
     small: string;
   };
   alt_description: string;
@@ -12,7 +12,6 @@ interface Image {
   };
   views: number;
 }
-
 interface ImageCardProps {
   image: Image;
   onImageClick: (image: Image) => void;
