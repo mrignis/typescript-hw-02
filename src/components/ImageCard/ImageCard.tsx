@@ -1,16 +1,7 @@
+// ImageCard.tsx
 import React from "react";
 import styles from "./ImageCard.module.css";
-
-type Image = {
-  urls: {
-    small: string;
-  };
-  alt_description: string;
-  user: {
-    name: string;
-  };
-  views: number;
-};
+import { Image } from "../types"; // Імпорт типу Image
 
 type ImageCardProps = {
   image: Image;
@@ -41,4 +32,3 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
 };
 
 export default ImageCard;
-
