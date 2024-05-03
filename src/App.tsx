@@ -1,22 +1,33 @@
-// App.tsx
 import React, { useState, useEffect } from "react";
-import ImageGallery from "../src/components/ImageGallery/ImageGallery";
-import ErrorMessage from "../src/components/ErrorMessage/ErrorMessage";
-import Loader from "../src/components/Loader/Loader";
-import SearchBar from "../src/components/SearchBar/SearchBar";
-import ImageModal from "../src/components/ImageModal/ImageModal";
-import LoadMoreBtn from "../src/components/LoadMoreBtn/LoadMoreBtn";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ImageCard from "../src/components/ImageCard/ImageCard";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
+import isEnglish from "is-english";
+import "./App.css";
 
-type AppProps = object;
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
+
+interface Image {
+  id: string;
+  urls: {
+    regular: string;
+  };
+  alt_description: string;
+  user: {
+    name: string;
+  };
+  views: number;
+}
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const IMAGES_PER_PAGE = 20;
 const API_KEY = "8mcRsNbjAwUXJlUgEJzbvpLMrGD8KOZY1sMb-0IBjCk";
 
-const App: React.FC<AppProps> = () => {
+const App: React.FC = () => {
   const [query, setQuery] = useState<string>("");
   const [images, setImages] = useState<Image[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -24,61 +35,68 @@ const App: React.FC<AppProps> = () => {
   const [error, setError] = useState<string | null>(null);
   const [modalImage, setModalImage] = useState<Image | null>(null);
 
-  const handleSearch = async (searchQuery: string): Promise<void> => {
+  const handleSearch = async (searchQuery: string) => {
+    if (!isEnglish(searchQuery)) {
+      setError("Please enter an English word.");
+      return;
+    }
+
     setQuery(searchQuery);
     setPage(1);
   };
 
-  const handleLoadMore = (): void => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const handleImageClick = (image: Image): void => {
-    setModalImage(image);
-  };
-
-  const handleCloseModal = (): void => {
-    setModalImage(null);
-  };
-
   useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      if (query) {
-        setIsLoading(true);
-        try {
-          const response = await fetch(
+    const fetchData = async () => {
+      try {
+        if (query) {
+          setIsLoading(true);
+          const { data } = await axios.get(
             `${API_URL}?query=${query}&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${API_KEY}`
           );
-          if (!response.ok) {
-            throw new Error("Failed to fetch images");
-          }
-          const data = await response.json();
           if (page === 1) {
             setImages(data.results);
           } else {
             setImages((prevImages) => [...prevImages, ...data.results]);
           }
           setIsLoading(false);
-        } catch (error) {
-          console.error("Error fetching images:", error);
-          setIsLoading(false);
-          setError("Error fetching images. Please try again later.");
         }
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setIsLoading(false);
+        toast.error("Error fetching images. Please try again later.");
       }
     };
 
     fetchData();
   }, [query, page]);
 
+  const handleLoadMore = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  const handleImageClick = (image: Image) => {
+    setModalImage(image);
+  };
+
+  const handleCloseModal = () => {
+    setModalImage(null);
+  };
+
   return (
-    <div className="app">
+    <div className="app-container">
       <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
-      {images.length > 0 && <ImageGallery image={images} onImageClick={handleImageClick} />}
+      {images.length > 0 && (
+        <ImageGallery images={images} onImageClick={handleImageClick} />
+      )}
       {images.length > 0 && <LoadMoreBtn onLoadMore={handleLoadMore} />}
       {error && <ErrorMessage message={error} />}
-      {modalImage && <ImageModal isOpen={!!modalImage} image={modalImage} onClose={handleCloseModal} />}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ImageModal
+        isOpen={!!modalImage}
+        image={modalImage}
+        onClose={handleCloseModal}
+      />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
