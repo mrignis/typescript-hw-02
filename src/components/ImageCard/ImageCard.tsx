@@ -1,7 +1,7 @@
 // ImageCard.tsx
 import React from "react";
 import styles from "./ImageCard.module.css";
-import { Image } from "../temple";
+import { Image } from "../image";
 
 type ImageCardProps = {
   image: Image;
