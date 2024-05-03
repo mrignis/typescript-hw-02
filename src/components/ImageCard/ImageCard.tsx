@@ -1,12 +1,21 @@
-// ImageCard.tsx
 import React from "react";
 import styles from "./ImageCard.module.css";
-import { Image } from "../types";
 
-type ImageCardProps = {
+interface Image {
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+  user: {
+    name: string;
+  };
+  views: number;
+}
+
+interface ImageCardProps {
   image: Image;
   onImageClick: (image: Image) => void;
-};
+}
 
 const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
   const handleClick = () => {
