@@ -4,11 +4,15 @@ import styles from "./ImageGallery.module.css";
 
 // Ваш власний тип Image
 interface MyImage {
-  id: string;
-  url: string;
-  alt: string;
+  urls: {
+    small: string;
+  };
+  alt_description: string;
+  user: {
+    name: string;
+  };
+  views: number;
 }
-
 interface ImageGalleryProps {
   images: MyImage[]; // Використовуємо нове ім'я
   onImageClick: (image: MyImage) => void;
