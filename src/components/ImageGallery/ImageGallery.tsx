@@ -3,7 +3,7 @@ import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
 
 // Ваш власний тип Image
-interface MyImage {
+interface Image {
   urls: {
     small: string;
   };
@@ -14,8 +14,8 @@ interface MyImage {
   views: number;
 }
 interface ImageGalleryProps {
-  images: MyImage[]; // Використовуємо нове ім'я
-  onImageClick: (image: MyImage) => void;
+  images: Image[]; // Використовуємо нове ім'я
+  onImageClick: (image: Image) => void;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
