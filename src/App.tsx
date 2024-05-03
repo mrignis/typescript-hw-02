@@ -1,26 +1,28 @@
-// Передаємо замість ImageCardProps, ImageGalleryProps
-import React from "react";
-import ImageGallery from "../ImageGallery/ImageGallery";
-import styles from "./App.module.css";
-import { Image } from "../types"; // Імпорт типу Image
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import Loader from "../Loader/Loader";
-import SearchBar from "../SearchBar/SearchBar";
-import ImageModal from "../ImageModal/ImageModal";
+// App.tsx
+import React, { useState, useEffect } from "react";
+import ImageGallery from "../../src/components/ImageGallery/ImageGallery";
+import ErrorMessage from "../../src/components/ErrorMessage/ErrorMessage";
+import Loader from "../../src/components/Loader/Loader";
+import SearchBar from "../../src/components/SearchBar/SearchBar";
+import ImageModal from "../../src/components/ImageModal/ImageModal";
+import LoadMoreBtn from "../../src/components/LoadMoreBtn/LoadMoreBtn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Image } from "../src/components/types"; // Зміна імпорту на "../types"
+
+type AppProps = object;
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const IMAGES_PER_PAGE = 20;
 const API_KEY = "8mcRsNbjAwUXJlUgEJzbvpLMrGD8KOZY1sMb-0IBjCk";
 
-const App: React.FC = () => {
-  const [query, setQuery] = React.useState<string>("");
-  const [images, setImages] = React.useState<Image[]>([]);
-  const [page, setPage] = React.useState<number>(1);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | null>(null);
-  const [modalImage, setModalImage] = React.useState<Image | null>(null);
+const App: React.FC<AppProps> = () => {
+  const [query, setQuery] = useState<string>("");
+  const [images, setImages] = useState<Image[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [modalImage, setModalImage] = useState<Image | null>(null);
 
   const handleSearch = async (searchQuery: string): Promise<void> => {
     setQuery(searchQuery);
@@ -39,7 +41,7 @@ const App: React.FC = () => {
     setModalImage(null);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async (): Promise<void> => {
       if (query) {
         setIsLoading(true);
@@ -69,7 +71,7 @@ const App: React.FC = () => {
   }, [query, page]);
 
   return (
-    <div className={styles.app}>
+    <div className="app">
       <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
       {images.length > 0 && <ImageGallery images={images} onImageClick={handleImageClick} />}

@@ -1,7 +1,7 @@
 // ImageCard.tsx
 import React from "react";
 import styles from "./ImageCard.module.css";
-import { Image } from "../types"; // Імпорт типу Image
+import { Image } from "../types";
 
 type ImageCardProps = {
   image: Image;
@@ -16,7 +16,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
   return (
     <li className={styles.card}>
       <img
-        src={image.urls.small}
+        src={image.urls.small} // Оновлено
         alt={image.alt_description}
         className={styles.image}
         onClick={handleClick}

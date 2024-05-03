@@ -1,34 +1,22 @@
-// ImageCard.tsx
+// ImageGallery.tsx
 import React from "react";
-import styles from "./ImageCard.module.css";
-import { Image } from "../types"; // Імпорт типу Image
+import ImageCard from "../ImageCard/ImageCard";
+import styles from "./ImageGallery.module.css";
+import { Image } from "../types"; // Змінено імпорт типу Image
 
-type ImageCardProps = {
-  image: Image;
+type ImageGalleryProps = {
+  images: Image[];
   onImageClick: (image: Image) => void;
 };
 
-const ImageCard: React.FC<ImageCardProps> = ({ image, onImageClick }) => {
-  const handleClick = () => {
-    onImageClick(image);
-  };
-
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
   return (
-    <li className={styles.card}>
-      <img
-        src={image.urls.small}
-        alt={image.alt_description}
-        className={styles.image}
-        onClick={handleClick}
-      />
-      <div className={styles.overlay}>
-        <div className={styles.overlayContent}>
-          <h3 className={styles.title}>{image.user.name}</h3>
-          <p className={styles.views}>{image.views} views</p>
-        </div>
-      </div>
-    </li>
+    <ul className={styles.gallery}>
+      {images.map((image) => (
+        <ImageCard key={image.id} image={image} onImageClick={onImageClick} />
+      ))}
+    </ul>
   );
 };
 
-export default ImageCard;
+export default ImageGallery;

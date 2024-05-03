@@ -1,9 +1,9 @@
 // types.ts
-
 export type Image = {
   id: string;
   urls: {
-    small: string;
+    small?: string;
+    regular?: string;
   };
   alt_description: string;
   user: {
@@ -11,4 +11,3 @@ export type Image = {
   };
   views: number;
 };
-
