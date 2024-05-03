@@ -18,14 +18,14 @@ interface Image {
 
 interface ImageGalleryProps {
   images: Image[];
-
+  onImageClick: (image: Image) => void;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ images, }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
   return (
     <ul className={styles.gallery}>
       {images.map((image) => (
-        <ImageCard key={image.id} image={image}  />
+        <ImageCard key={image.id} image={image} onImageClick={onImageClick} />
       ))}
     </ul>
   );

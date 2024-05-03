@@ -11,11 +11,10 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
-
 interface Image {
   id: string;
   urls: {
-    regular: string;
+    small: string;
   };
   alt_description: string;
   user: {
