@@ -1,11 +1,11 @@
 // App.tsx
 import React, { useState, useEffect } from "react";
-import ImageGallery from "../../src/components/ImageGallery/ImageGallery";
-import ErrorMessage from "../../src/components/ErrorMessage/ErrorMessage";
-import Loader from "../../src/components/Loader/Loader";
-import SearchBar from "../../src/components/SearchBar/SearchBar";
-import ImageModal from "../../src/components/ImageModal/ImageModal";
-import LoadMoreBtn from "../../src/components/LoadMoreBtn/LoadMoreBtn";
+import ImageGallery from "../src/components/ImageGallery/ImageGallery";
+import ErrorMessage from "../src/components/ErrorMessage/ErrorMessage";
+import Loader from "../src/components/Loader/Loader";
+import SearchBar from "../src/components/SearchBar/SearchBar";
+import ImageModal from "../src/components/ImageModal/ImageModal";
+import LoadMoreBtn from "../src/components/LoadMoreBtn/LoadMoreBtn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Image } from "../src/components/temple"; // Зміна імпорту на "../types"
