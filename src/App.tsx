@@ -8,7 +8,7 @@ import ImageModal from "../src/components/ImageModal/ImageModal";
 import LoadMoreBtn from "../src/components/LoadMoreBtn/LoadMoreBtn";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Image } from "./components/types"; // Зміна імпорту на "../types"
+import ImageCard from "../src/components/ImageCard/ImageCard";
 
 type AppProps = object;
 
