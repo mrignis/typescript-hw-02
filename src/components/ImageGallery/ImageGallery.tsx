@@ -1,11 +1,17 @@
 import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import styles from "./ImageGallery.module.css";
-import Image from "../ImageCard/ImageCard"; // Правильний імпорт
+
+// Ваш власний тип Image
+interface MyImage {
+  id: string;
+  url: string;
+  alt: string;
+}
 
 interface ImageGalleryProps {
-  images: Image[];
-  onImageClick: (image: Image) => void;
+  images: MyImage[]; // Використовуємо нове ім'я
+  onImageClick: (image: MyImage) => void;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images, onImageClick }) => {
