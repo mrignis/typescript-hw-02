@@ -1,0 +1,10 @@
+.gallery {
+    min-width: 750px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+}
+
+/* Додаткові стилі для компонента ImageCard можна додати тут */
