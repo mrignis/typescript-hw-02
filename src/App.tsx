@@ -1,6 +1,5 @@
-// App.tsx
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import isEnglish from "is-english";
 import "./App.css";
@@ -11,6 +10,7 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+
 interface Image {
   id: string;
   urls: {
@@ -22,6 +22,10 @@ interface Image {
     name: string;
   };
   views: number;
+}
+
+interface UnsplashResponse {
+  results: Image[];
 }
 
 const API_URL = "https://api.unsplash.com/search/photos";
@@ -36,7 +40,7 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [modalImage, setModalImage] = useState<Image | null>(null);
 
-  const handleSearch = async (searchQuery: string) => {
+  const handleSearch = async (searchQuery: string): Promise<void> => {
     if (!isEnglish(searchQuery)) {
       setError("Please enter an English word.");
       return;
@@ -47,11 +51,11 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         if (query) {
           setIsLoading(true);
-          const { data } = await axios.get(
+          const { data }: AxiosResponse<UnsplashResponse> = await axios.get(
             `${API_URL}?query=${query}&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${API_KEY}`
           );
           if (page === 1) {
@@ -71,15 +75,15 @@ const App: React.FC = () => {
     fetchData();
   }, [query, page]);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (): void => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleImageClick = (image: Image) => {
+  const handleImageClick = (image: Image): void => {
     setModalImage(image);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (): void => {
     setModalImage(null);
   };
 
